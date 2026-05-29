@@ -9,7 +9,7 @@ Install and configure firewall with rules to allow SSH only from a specific IP, 
 - OS: CentOS Stream 9
 - Firewall Tool: firewalld (UFW not available on CentOS)
 - Server IP: 192.168.231.128
-- Windows Host IP: 192.168.1.17
+- Windows Host IP: 192.168.231.1
 
 ---
 
@@ -36,7 +36,7 @@ Active: active (running) ✅
 
 ### 2. Add SSH Rule FIRST (Your Windows IP Only)
 ```bash
-sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.1.17" port port="22" protocol="tcp" accept'
+sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.231.1" port port="22" protocol="tcp" accept'
 ```
 
 ### 3. Allow HTTP (Port 80)
@@ -90,7 +90,7 @@ drop (active)
   services: http
   ports: 8000/tcp
   rich rules:
-    rule family="ipv4" source address="192.168.1.17"
+    rule family="ipv4" source address="192.168.231.1"
     port port="22" protocol="tcp" accept
 ```
 
@@ -138,7 +138,7 @@ Port 22 → Open to EVERYONE ❌ (not secure)
 ### After Task 5
 ```
 Default zone = drop
-Port 22  → Open ONLY to 192.168.1.17 ✅
+Port 22  → Open ONLY to 192.168.231.1 ✅
 Port 80  → Open to everyone (HTTP) ✅
 Port 8000→ Open to everyone (Docker app) ✅
 Others   → Dropped by default ✅
@@ -146,7 +146,7 @@ Others   → Dropped by default ✅
 ---
 
 ## Expected Outcome
-✅ SSH access restricted explicitly and allowed to specific IP (192.168.1.17) only
+✅ SSH access restricted explicitly and allowed to specific IP (192.168.231.1) only
 ✅ HTTP access allowed from anywhere
 ✅ Port 8000 accessible for Docker application
 ✅ All other unauthorized access dropped
